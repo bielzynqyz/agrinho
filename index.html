@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz: Do Campo à Cidade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0fff0;
+      padding: 20px;
+      text-align: center;
+    }
+    .caixa-perguntas {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .caixa-alternativas button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #48a868;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .caixa-alternativas button:hover {
+      background-color: #369956;
+    }
+    .texto-resultado {
+      margin-top: 30px;
+      font-size: 1.1em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Festejando: Do Campo à Cidade</h1>
+  <div class="caixa-principal">
+    <div class="caixa-perguntas"></div>
+    <div class="caixa-alternativas"></div>
+    <div class="caixa-resultado">
+      <p class="texto-resultado"></p>
+    </div>
+  </div>
+
+  <script>
+    const caixaPerguntas = document.querySelector(".caixa-perguntas");
+    const caixaAlternativas = document.querySelector(".caixa-alternativas");
+    const textoResultado = document.querySelector(".texto-resultado");
+
+    const perguntas = [
+      {
+        enunciado: "De onde vem a maior parte dos alimentos que comemos na cidade?",
+        alternativas: [
+          { texto: "Do campo", afirmacao: "Você valoriza os produtores rurais que garantem nossa alimentação." },
+          { texto: "Do supermercado", afirmacao: "Lembrou que o supermercado é só o meio, mas os alimentos vêm do campo!" }
+        ]
+      },
+      {
+        enunciado: "Como a cidade pode ajudar o campo?",
+        alternativas: [
+          { texto: "Comprando produtos locais", afirmacao: "Acredita que valorizar o que é produzido perto fortalece a economia rural." },
+          { texto: "Oferecendo tecnologia e educação", afirmacao: "Entende que o desenvolvimento do campo depende também do acesso ao conhecimento e inovação." }
+        ]
+      },
+      {
+        enunciado: "Qual dessas festas celebra a vida no campo?",
+        alternativas: [
+          { texto: "Festa Junina", afirmacao: "Você conhece e valoriza a cultura popular ligada às tradições rurais." },
+          { texto: "Festival de Cinema", afirmacao: "Sabe que cultura existe em muitos lugares, mas também lembra da alegria das festas típicas do campo." }
+        ]
+      },
+      {
+        enunciado: "Qual desses recursos vem do campo e chega à cidade?",
+        alternativas: [
+          { texto: "Leite e frutas", afirmacao: "Você reconhece a importância da produção rural no nosso dia a dia." },
+          { texto: "Internet", afirmacao: "Lembra que a tecnologia ajuda o campo, mas a produção rural é essencial para a vida urbana." }
+        ]
+      },
+      {
+        enunciado: "O que podemos aprender com quem vive no campo?",
+        alternativas: [
+          { texto: "Respeito à natureza e trabalho em equipe", afirmacao: "Valoriza os ensinamentos de quem vive em harmonia com o ambiente." },
+          { texto: "Criar aplicativos", afirmacao: "Mesmo sendo importante, sabe que há muito mais que o campo tem a ensinar." }
+        ]
+      }
+    ];
+
+    let atual = 0;
+    let historiaFinal = "";
+
+    function mostraPergunta() {
+      if (atual >= perguntas.length) {
+        mostrarResultado();
+        return;
+      }
+
+      const perguntaAtual = perguntas[atual];
+      caixaPerguntas.textContent = perguntaAtual.enunciado;
+      caixaAlternativas.innerHTML = "";
+
+      perguntaAtual.alternativas.forEach(alternativa => {
+        const botao = document.createElement("button");
+        botao.textContent = alternativa.texto;
+        botao.onclick = () => {
+          historiaFinal += alternativa.afirmacao + " ";
+          atual++;
+          mostraPergunta();
+        };
+        caixaAlternativas.appendChild(botao);
+      });
+    }
+
+    function mostrarResultado() {
+      caixaPerguntas.textContent = "Você completou o quiz!";
+      caixaAlternativas.innerHTML = "";
+      textoResultado.textContent = historiaFinal.trim();
+    }
+
+    mostraPergunta();
+  </script>
+</body>
+</html>
